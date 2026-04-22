@@ -1,2 +1,3 @@
-# Managemente-System-java
-This project consists of a Java program for managing members. It focuses on learning about objects, methods, ArrayList, and how to write to .txt files using Java.
+Here is one of my first Java projects. It’s something I really enjoyed building. It’s a program for managing members using getters, setters, and encapsulation.
+
+Note: Make sure you have the JDK (Java Development Kit) installed on your computer. Comments in Portuguese
