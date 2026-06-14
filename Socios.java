@@ -1,4 +1,3 @@
-package Sócios;
 
 public class Socios {
     private String nome;
@@ -6,29 +5,22 @@ public class Socios {
     private double valorMensalidade;
     private boolean estaIndiplente = false;
     
-    // Metódo para aplicar informações recebidas
+    // Construtor
     public Socios(String nome, int idade, double valorMensalidade, boolean estaIndiplente) {
         this.nome = nome;
         this.setIdade(idade); 
         this.setvalorMensalidade(valorMensalidade); 
         this.setestaIndiplente(estaIndiplente); 
+    if(this.idade > 18 && this.valorMensalidade > 100 && !this.estaIndiplente){
+        aplicarDesconto();
     }
-     
-    // Getters e Setters
 
-    public void setestaIndiplente(boolean estaIndiplente){
-    this.estaIndiplente = estaIndiplente;
-
-    if(this.estaIndiplente == true){ 
+    if(this.estaIndiplente){
         aplicarMulta();
     }
     }
-    
-
-    public boolean getestaIdiplente(){
-        return this.estaIndiplente;
-    }
-
+     
+    // Getters e Setters
     public void setvalorMensalidade(double valorMensalidade){
         if(valorMensalidade<0){
             System.out.println("Mensalidade não pode ser negativa ou zero!! ");
@@ -37,11 +29,11 @@ public class Socios {
             this.valorMensalidade = valorMensalidade;
         }
     }
-
+    
     public double getvalorMensalidade(){
         return this.valorMensalidade;
     }
-
+    
     public void setIdade(int idade){
         if(idade==0 || idade>120){
             System.out.println("Idade Irreal!!");
@@ -50,27 +42,41 @@ public class Socios {
             this.idade= idade;
         }
     }
-
+    
     public int getIdade(){
         return this.idade;
     }
-
+    
     public void setnome(String nome){
         this.nome= nome;
     }
-
+    
     public String getnome(){
         return this.nome;
+    }
+    
+    public boolean getestaIdiplente(){
+        return this.estaIndiplente;
+    }
+    public void setestaIndiplente(boolean estaIndiplente){
+    this.estaIndiplente = estaIndiplente;
+
+    if(this.estaIndiplente == true){ 
+        aplicarMulta();
+    }
     }
     
     // Metódo para plicar multa
     public void aplicarMulta(){
         valorMensalidade = valorMensalidade + (valorMensalidade * 0.05);
     }
-
+    
     //Método para exibir informações
     public void exibirInformacoes(){
         System.out.println("Nome: " + nome);
-        System.out.println("Mensalidade atual: " +valorMensalidade);
+        System.out.println("Mensalidade atual: " + valorMensalidade);   
+    }
+    public void aplicarDesconto(){
+        valorMensalidade = valorMensalidade -(valorMensalidade * 0.09);
     }
 }
