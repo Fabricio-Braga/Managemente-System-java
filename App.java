@@ -1,86 +1,51 @@
-package Sócios;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) {
-        ArrayList<Socios> estante = new ArrayList<>();
+        GerenciadorSocios g = new GerenciadorSocios();
+        g.lerDados();
         Scanner leitor = new Scanner(System.in);
-        int somaIdade = 0;
-        int media;
-        int devendo = 0;
-;        String resposta = "Sim";
-// Onde vamos receber as informações
-while (resposta.equalsIgnoreCase("Sim")) {
-    System.out.println("Digite o nome do Sócio: ");
-    String n = leitor.nextLine();
+        int opcao = 0;
+        do {
+            System.out.println("1. Cadastrar\n2. Pesquisar\n3. Relatorio\n4. Sair\n5. Remover Sócio");
+            opcao = leitor.nextInt();
+            leitor.nextLine();
+            switch (opcao) {
+                case 1:
+                    System.out.println("Digite o nome do Sócio: ");
+                    String n = leitor.nextLine();
 
-    System.out.println("Digite a idade do Sócio: ");
-    int i = leitor.nextInt();
+                    System.out.println("Digite a idade do Sócio: ");
+                    int i = leitor.nextInt();
 
-    System.out.println("Digite a mensalidade do Sócio: ");
-    double v = leitor.nextDouble();
-
-    System.out.println("Digite true se deve mensalidade: ");
-    boolean s = leitor.nextBoolean();
-
-    Socios novo = new Socios(n, i, v, s);
-
-    estante.add(novo);
-
-    somaIdade += novo.getIdade();
-    if (novo.getestaIdiplente()) {
-        devendo++;
-    }
-
-    leitor.nextLine();
-    System.out.println("Deseja continuar: ");
-    resposta = leitor.nextLine();
-}
-        // Calculo da média
-        media= somaIdade/ estante.size();
-        System.out.println("Média das idades: " + media);
-        
-        System.out.println("Sócios devendo: " + devendo);
-
-        System.out.println("Sócios Cadastrados: ");
-
-        // Verificação de Sócio VIP
-        for(Socios j :  estante){
-        if(j.getIdade()>18 && j.getvalorMensalidade()>100){
-        double novoValor = j.getvalorMensalidade() * 0.90; 
-        j.setvalorMensalidade(novoValor);
-    
-    System.out.println("Sócio " + j.getnome() + " agora é VIP!");        
-}
-        // Verificação de Sócio KID
-        if(j.getIdade()<12){
-            String tag= "[KIDS]" + j.getnome();
-            j.setnome(tag);
-        }
-        // Sócios na terceira idade que devem mensalidade
-        if(j.getIdade()>60 && j.getestaIdiplente()==true){
-            System.out.println("Ligar para a cobrança prioritária: " + j.getnome());
-        }
-            if (j.getestaIdiplente() == true) {
-                j.aplicarMulta();
+                    System.out.println("Digite a mensalidade do Sócio: ");
+                    double v = leitor.nextDouble();
+                    leitor.nextLine();
+                    System.out.println("Digite se deve mensalidade, sim ou não: ");
+                    String sn = leitor.nextLine();
+                    boolean s= sn.equalsIgnoreCase("sim");
+                    Socios novo = new Socios(n, i, v, s);
+                    g.getEstante().add(novo);
+                    g.salvarDados();
+                    break;
+                case 2:
+                    g.procurar();
+                    break;
+                case 3:
+                    g.mediaeDevendo();
+                    break;
+                case 4:
+                    System.out.println("Saindo...");
+                    System.exit(0);
+                    break;
+                case 5:
+                    g.remover();
+                    break;
             }
-            j.exibirInformacoes();
-
-        }
-        // Escrevendo no arquivo .txt
-        try {
-    java.io.PrintWriter escritor = new java.io.PrintWriter("socios.txt");
-    for (Socios s : estante) {
-        escritor.println("Sócio: " + s.getnome() + " | Mensalidade: " + s.getvalorMensalidade());
-    }
-    escritor.close();
-    System.out.println("Arquivo salvo com sucesso!");
-} catch (java.io.FileNotFoundException e) {
-    System.out.println("Erro ao criar o arquivo.");
-}
+        } while (opcao != 5);
         leitor.close();
     }
 
-}
+
+    }
